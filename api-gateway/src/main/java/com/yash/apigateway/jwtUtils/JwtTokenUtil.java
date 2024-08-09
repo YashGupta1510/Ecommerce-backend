@@ -1,6 +1,6 @@
 package com.yash.apigateway.jwtUtils;
 
-import java.security.Key;
+import javax.crypto.SecretKey;
 
 import org.springframework.stereotype.Component;
 
@@ -14,13 +14,12 @@ public class JwtTokenUtil {
 	// Requirement:
 	public static final long JWT_TOKEN_VALIDITY = 1000 * 5 * 60 * 60;
 	private final String SECRET = "secretkeythinsdnfdnenfaunerfnaerufnerofnuoaenfoanfuondofnajndviujneufnvaienfoUBEGFBEAWEFGHBEUWGFWEGFaegfwegwegwegeg";
-	
-	public void validateToken(final String token) {
-        Jwts.parserBuilder().setSigningKey(getSignKey()).build().parseClaimsJws(token);
-    }
 
-    private Key getSignKey() {
-        byte[] keyBytes = Decoders.BASE64.decode(SECRET);
-        return Keys.hmacShaKeyFor(keyBytes);
+	public void validateToken(final String token) {
+        Jwts.parser().verifyWith(getSignKey()).build().parseSignedClaims(token);
     }
+	private SecretKey getSignKey() {
+		byte[] keyBytes = Decoders.BASE64.decode(SECRET);
+		return Keys.hmacShaKeyFor(keyBytes);
+	}
 }

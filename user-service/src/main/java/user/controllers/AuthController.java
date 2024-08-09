@@ -38,7 +38,6 @@ public class AuthController {
 
 	@PostMapping("/login")
 	public ResponseEntity<AuthenticationResponse> login(@RequestBody LoginRequestDTO request) {
-
 		this.doAuthenticate(request.getEmail(), request.getPassword());
 
 		String token = this.jwtUtil.generateToken(request.getEmail());

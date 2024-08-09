@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class HomeController {
 	@GetMapping("/hi")
 	public ResponseEntity<String> home() {
+    	System.out.println("CAME HERE HOME CONTROLLER");
+
 		return new ResponseEntity<String>("Hello", HttpStatus.OK);
 	}
 }
