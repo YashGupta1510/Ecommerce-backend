@@ -25,7 +25,6 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
 	@Override
 	public GatewayFilter apply(Config config) {
 		return ((exchange, chain) -> {
-			System.out.println("CAME HERE");
 			if (validator.isSecured.test(exchange.getRequest())) {
 				
 				// header contains token or not
@@ -42,11 +41,8 @@ public class AuthenticationFilter extends AbstractGatewayFilterFactory<Authentic
 					System.out.println(authHeader);
 				}
 				try {
-					System.out.println("came to validate");
 					jwtTokenUtil.validateToken(authHeader);
-					System.out.println("Validated");
 				} catch (Exception e) {
-					System.out.println("invalid access...!");
 					throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "Unauthorized access to application");
 				}
 			}

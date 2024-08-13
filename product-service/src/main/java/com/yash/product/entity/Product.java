@@ -1,39 +1,17 @@
 package com.yash.product.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import java.util.Map;
 
-@Entity
-@Table(name="products")
+import org.springframework.data.mongodb.core.mapping.Document;
+
+@Document("products")
 public class Product {
-	
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	long id;
-	
-	@Column(nullable = false)
+
 	String name;
-	
-	@Column(nullable = false)
-	long price;
-	
-	@Column(nullable = true)
+	double price;
 	String description;
-	
-	@Column(nullable = false, unique = true)
 	String skuCode;
-
-	public long getId() {
-		return id;
-	}
-
-	public void setId(long id) {
-		this.id = id;
-	}
+	Map<String, Object> additionalProperties;
 
 	public String getName() {
 		return name;
@@ -43,11 +21,11 @@ public class Product {
 		this.name = name;
 	}
 
-	public long getPrice() {
+	public double getPrice() {
 		return price;
 	}
 
-	public void setPrice(long price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
@@ -66,26 +44,31 @@ public class Product {
 	public void setSkuCode(String skuCode) {
 		this.skuCode = skuCode;
 	}
-
-	@Override
-	public String toString() {
-		return "Product [id=" + id + ", name=" + name + ", price=" + price + ", description=" + description
-				+ ", skuCode=" + skuCode + "]";
+	
+	public Map<String, Object> getAdditionalProperties() {
+		return additionalProperties;
 	}
 
-	public Product(long id, String name, long price, String description, String skuCode) {
+	public void setAdditionalProperties(Map<String, Object> additionalProperties) {
+		this.additionalProperties = additionalProperties;
+	}
+
+	public Product(String name, double price, String description, String skuCode,
+			Map<String, Object> additionalProperties) {
 		super();
-		this.id = id;
 		this.name = name;
 		this.price = price;
 		this.description = description;
 		this.skuCode = skuCode;
+		this.additionalProperties = additionalProperties;
 	}
 
-	public Product() {
-		super();
+	@Override
+	public String toString() {
+		return "Product [ name=" + name + ", price=" + price + ", description=" + description
+				+ ", skuCode=" + skuCode + ", additionalProperties=" + additionalProperties + "]";
 	}
+
 	
-	
-	
+
 }

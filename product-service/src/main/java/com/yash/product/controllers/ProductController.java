@@ -1,20 +1,19 @@
 package com.yash.product.controllers;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.yash.product.entity.Product;
 import com.yash.product.service.ProductService;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
@@ -31,10 +30,9 @@ public class ProductController {
 	}
 	
 	@GetMapping(value = "/{skuCode}")
-	public ResponseEntity<Product> getProductBySkuCode(@RequestParam String skuCode){
-		Optional<Product> product = productService.getProduct(skuCode) ;
-		return product.map(value -> new ResponseEntity<>(value, HttpStatus.OK))
-                .orElseGet(() -> new ResponseEntity<>(HttpStatus.NOT_FOUND));
+	public ResponseEntity<Product> getProductBySkuCode(@PathVariable String skuCode){
+		Product product = productService.getProduct(skuCode);
+		return new ResponseEntity<>(product, HttpStatus.OK);
 	}
 	
 	@PostMapping

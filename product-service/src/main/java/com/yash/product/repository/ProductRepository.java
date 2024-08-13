@@ -1,13 +1,17 @@
 package com.yash.product.repository;
 
-import java.util.Optional;
-
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.mongodb.repository.MongoRepository;
+import org.springframework.data.mongodb.repository.Query;
 
 import com.yash.product.entity.Product;
 
-public interface ProductRepository extends JpaRepository<Product, Long>{
+public interface ProductRepository extends MongoRepository<Product, Long>{
 
-	Optional<Product> findProductBySkuCode(String code);
+	
+	@Query("{name:'?0'}")
+	Product findItemByName(String name);
 
+	@Query("{skuCode:'?0'}")
+	Product findProductBySkuCode(String sku_code);
+	
 }
