@@ -2,15 +2,18 @@ package com.yash.order.entity;
 
 import java.util.List;
 
+import com.yash.order.dtos.CartItemDTO;
 import com.yash.order.enums.OrderStatus;
 
-import jakarta.persistence.ElementCollection;
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.Table;
 
 @Entity
@@ -25,8 +28,8 @@ public class Order {
 
     private double totalPrice;
 
-    @ElementCollection
-    private List<String> productIds;
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    private List<CartItemDTO> orderItems;
 
     @Enumerated(EnumType.STRING)  // Store the enum as a string in the database
     private OrderStatus status;
@@ -55,13 +58,14 @@ public class Order {
 		this.totalPrice = totalPrice;
 	}
 
-	public List<String> getProductIds() {
-		return productIds;
-	}
 
-	public void setProductIds(List<String> productIds) {
-		this.productIds = productIds;
-	}
+    public List<CartItemDTO> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<CartItemDTO> orderItems) {
+        this.orderItems = orderItems;
+    }
 
 	public OrderStatus getStatus() {
 		return status;
@@ -73,7 +77,7 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "Order [id=" + id + ", email=" + email + ", totalPrice=" + totalPrice + ", productIds=" + productIds
+		return "Order [id=" + id + ", email=" + email + ", totalPrice=" + totalPrice + ", orderItems=" + orderItems
 				+ ", status=" + status + "]";
 	} 
 
