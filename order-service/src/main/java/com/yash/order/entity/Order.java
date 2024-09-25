@@ -31,6 +31,8 @@ public class Order {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<CartItemDTO> orderItems;
 
+    private String paymentID;
+    
     @Enumerated(EnumType.STRING)  // Store the enum as a string in the database
     private OrderStatus status;
 
@@ -67,11 +69,11 @@ public class Order {
         this.orderItems = orderItems;
     }
 
-	public OrderStatus getStatus() {
+	public OrderStatus getOrderStatus() {
 		return status;
 	}
 
-	public void setStatus(OrderStatus status) {
+	public void setOrderStatus(OrderStatus status) {
 		this.status = status;
 	}
 
@@ -79,6 +81,14 @@ public class Order {
 	public String toString() {
 		return "Order [id=" + id + ", email=" + email + ", totalPrice=" + totalPrice + ", orderItems=" + orderItems
 				+ ", status=" + status + "]";
+	}
+
+	public String getPaymentID() {
+		return paymentID;
+	}
+
+	public void setPaymentID(String paymentID) {
+		this.paymentID = paymentID;
 	} 
 
     

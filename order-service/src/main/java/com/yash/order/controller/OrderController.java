@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -24,8 +25,8 @@ public class OrderController {
 
     // Create a new order using the items in the user's cart
     @PostMapping("/{email}")
-    public Order createOrder(@PathVariable String email) {
-        return orderService.createOrderFromCart(email);
+    public Order createOrder(@PathVariable String email, @RequestBody String paymentID) {
+        return orderService.createOrderFromCart(email, paymentID);
     }
 
     // Get all orders for a specific user by email

@@ -1,7 +1,11 @@
 package com.yash.order.dtos;
 
+import jakarta.persistence.Entity;
+import jakarta.persistence.Id;
 
+@Entity
 public class CartItemDTO {
+	@Id
 	private String skuCode;
 	private int quantity;
 	private double price;
